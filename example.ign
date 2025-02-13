@@ -12,5 +12,41 @@
         ]
       }
     ]
+  },
+  "storage": {
+    "files": [
+      {
+        "path": "/etc/ssh/sshd_config.d/20-enable-passwords.conf",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/zTMQQrCMBBG4X1P8UPXDS68gIjiTiFeIGkmdiBmJDNBentR6vLB4xtxpiQt4CiNrh6JNcRCCu8veAXVt7SEIg+uiCsS5dCLuWHEqX5H8C/uCysyF8Kzq0GlGSJlaYT9btrQ6e+pm6VmN9y2PnRbqBrPwVgqVlJg+AQAAP//h27pcpoAAAA="
+        },
+        "mode": 420
+      },
+      {
+        "path": "/etc/profile.d/systemd-pager.sh",
+        "contents": {
+          "compression": "",
+          "source": "data:;base64,IyBUZWxsIHN5c3RlbWQgdG8gbm90IHVzZSBhIHBhZ2VyIHdoZW4gcHJpbnRpbmcgaW5mb3JtYXRpb24gICAgICAgICAgCmV4cG9ydCBTWVNURU1EX1BBR0VSPWNhdCAgICAK"
+        },
+        "mode": 420
+      },
+      {
+        "path": "/etc/sysctl.d/20-silence-audit.conf",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/0TNMQvCMBQE4L2/4qBLuzgVnBwUpbh0KIhzaM/00TSRvGd/v4hobz3uuxK9EyWGFDUFYqGq80RI3kv0CFwZ8MhpwflyurWo9jUs4X7su2vXompq/FOUn2qSkXCvUeyn6RewiZBozG4wWbfPbT8zR4bdM0u0+dAU7wAAAP//QpUQh54AAAA="
+        },
+        "mode": 420
+      },
+      {
+        "path": "/etc/NetworkManager/system-connections/ens2.nmconnection",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/zyKQQrDIBBF93OWxKrYNqXMSUIWg06IoGNQW8jtS1oon794vDf7IsK+xyILxIAsxUA/dkbuG1fhDlE615U8j0KZf8Uc97dbgEKo3JpBo5XRTlllzONi3fBne3UQpKHVk7rdlbX6/DCp756nGxtT9RtCpmNcKSZcKTWGzH0rATPJixJ8AgAA//8VDgTlqQAAAA=="
+        },
+        "mode": 384
+      }
+    ]
   }
 }
