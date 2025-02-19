@@ -34,13 +34,14 @@
         "device": "/dev/sda",
         "partitions": [
           {
-            "number": 1,
-            "sizeMiB": 10240,
-            "typeGuid": "0fc63daf-8483-4772-8e79-3d69d8477de4"
+            "label": "root",
+            "number": 4,
+            "resize": true,
+            "sizeMiB": 10240
           },
           {
             "label": "var",
-            "number": 2,
+            "number": 5,
             "sizeMiB": 0
           }
         ],

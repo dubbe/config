@@ -21,12 +21,16 @@ storage:
     - device: /dev/sda
       wipe_table: false
       partitions:
-        - number: 1
+        - number: 4
+          label: root
           size_mib: 10240
-          type_guid: 0fc63daf-8483-4772-8e79-3d69d8477de4
-        - label: var
-          number: 2
-          size_mib: 0
+          resize: true
+        - size_mib: 0
+          number: 5
+          # We assign a descriptive label to the partition. This is important
+          # for referring to it in a device-agnostic way in other parts of the
+          # configuration.
+          label: var
   filesystems:
     - path: /var
       device: /dev/disk/by-partlabel/var
