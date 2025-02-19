@@ -17,6 +17,28 @@ passwd:
         - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCUywYo9yWigusMLEEoE+fAMvvEeeXSSO7DBED02S11H84MIljtyc+m5jwB3h1AqrW9RvaJOvmABXWZujljp8mtA0seNFVuYCtZZZCQoCSwD46P55QsAPat8I9Z+0kQS3cusTvVMu9DC9N98YgW7UDSnLkb/YIqbqAAFzDmIeBJzx2LUbdPFUZfjWG9+m3tck/BiXLsFFfQdp6sewnXViRvxpU6zASFxfpWmOY5sd5Kikofb1tIqjO5SJjuKgWV8Tzs3Tku3TmW/qNUtDBIFsDGi3bmNRckOBKaQd/YSsoURUwu2S0zaFS3oVUGD8szydMQP6Xy+x0OkzHBYzOur5y4RH/p2SCT9MMrrxBAP/t0Q5r6igNqiDOxyurj9CkHP1nDU45qaePZpZpIF1ojBSZwdwetUHjgERmKCr4vm6U80R+FE3maRJpapP6+/0BIlEoR+4yVM3K/BeprfKu7Pfmb1OQudQPiNnx+1OpQO/RMHO/BTEFXfUhuyDpbHXGBHcY3JXgiSNErWpRkgZyJXdyZDMQrZklTh81wkbG88IvFii0wTUiGN+sSDT3xtsp+XqECympp+fMRZKfoOmywT1UY5oAAhnQ81Us1s/pmKZQZ3wQqcRhkSfBlQb3l0tapYF+ioyAGOiGpIGMAMiXChxO/j8BGxapcReXOHGRgjoyxQw== thomas.dahlberg@adeprimo.se
       password_hash: $y$j9T$PxJ44hr5ekgiiuhs71uAs0$/ngrLPDX7kV2Au8Q/GiN6Iep17XVq/CdCRP5obuRw.4
 storage:
+  disks:
+    - device: /dev/sda
+      wipe_table: false
+      partitions:
+        - number: 1
+          size_mib: 10240
+          type_guid: 0fc63daf-8483-4772-8e79-3d69d8477de4
+        - label: containers
+          number: 2
+          size_mib: 0
+        - label: portainer_data
+          number: 3
+          size_mib: 0
+  filesystems:
+    - path: /var/lib/containers
+      device: /dev/disk/by-partlabel/containers
+      format: xfs
+      with_mount_unit: true
+    - path: /var/portainer_data
+      device: /dev/disk/by-partlabel/portainer_data
+      format: xfs
+      with_mount_unit: true
   files:
     - path: /etc/ssh/sshd_config.d/20-enable-passwords.conf
       mode: 0644
