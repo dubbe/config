@@ -6,6 +6,7 @@
     "users": [
       {
         "groups": [
+          "sudo",
           "docker"
         ],
         "name": "core",
@@ -16,10 +17,11 @@
       },
       {
         "groups": [
+          "wheel",
           "docker"
         ],
         "name": "thomas",
-        "passwordHash": "$y$j9T$JOyIp4pB5qD0s.Kqe9F9S1$zwA9t57f8LUZ2bWokI9Qez3X2WbpnEjJTqCwI8MyDk7",
+        "passwordHash": "$y$j9T$PxJ44hr5ekgiiuhs71uAs0$/ngrLPDX7kV2Au8Q/GiN6Iep17XVq/CdCRP5obuRw.4",
         "sshAuthorizedKeys": [
           "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCUywYo9yWigusMLEEoE+fAMvvEeeXSSO7DBED02S11H84MIljtyc+m5jwB3h1AqrW9RvaJOvmABXWZujljp8mtA0seNFVuYCtZZZCQoCSwD46P55QsAPat8I9Z+0kQS3cusTvVMu9DC9N98YgW7UDSnLkb/YIqbqAAFzDmIeBJzx2LUbdPFUZfjWG9+m3tck/BiXLsFFfQdp6sewnXViRvxpU6zASFxfpWmOY5sd5Kikofb1tIqjO5SJjuKgWV8Tzs3Tku3TmW/qNUtDBIFsDGi3bmNRckOBKaQd/YSsoURUwu2S0zaFS3oVUGD8szydMQP6Xy+x0OkzHBYzOur5y4RH/p2SCT9MMrrxBAP/t0Q5r6igNqiDOxyurj9CkHP1nDU45qaePZpZpIF1ojBSZwdwetUHjgERmKCr4vm6U80R+FE3maRJpapP6+/0BIlEoR+4yVM3K/BeprfKu7Pfmb1OQudQPiNnx+1OpQO/RMHO/BTEFXfUhuyDpbHXGBHcY3JXgiSNErWpRkgZyJXdyZDMQrZklTh81wkbG88IvFii0wTUiGN+sSDT3xtsp+XqECympp+fMRZKfoOmywT1UY5oAAhnQ81Us1s/pmKZQZ3wQqcRhkSfBlQb3l0tapYF+ioyAGOiGpIGMAMiXChxO/j8BGxapcReXOHGRgjoyxQw== thomas.dahlberg@adeprimo.se"
         ]
@@ -53,10 +55,10 @@
         "mode": 420
       },
       {
-        "path": "/etc/NetworkManager/system-connections/ens2.nmconnection",
+        "path": "/etc/NetworkManager/system-connections/eno1.nmconnection",
         "contents": {
-          "compression": "gzip",
-          "source": "data:;base64,H4sIAAAAAAAC/zyKQQrDIBBF93OWxKrYNqXMSUIWg06IoGNQW8jtS1oon794vDf7IsK+xyILxIAsxUA/dkbuG1fhDlE615U8j0KZf8Uc97dbgEKo3JpBo5XRTlllzONi3fBne3UQpKHVk7rdlbX6/DCp756nGxtT9RtCpmNcKSZcKTWGzH0rATPJixJ8AgAA//8VDgTlqQAAAA=="
+          "compression": "",
+          "source": "data:,%5Bconnection%5D%0Aid%3Deno1%0Atype%3Dethernet%0Ainterface-name%3Deno1%0A%5Bipv4%5D%0Aaddress1%3D10.104.2.119%2F24%2C10.104.2.254%0Adns%3D8.8.8.8%3B%0Adns-search%3D%0Amay-fail%3Dfalse%0Amethod%3Dmanual%0A"
         },
         "mode": 384
       }
@@ -65,7 +67,7 @@
   "systemd": {
     "units": [
       {
-        "contents": "[Unit]        \nDescription=Portainer Admin Container        \nAfter=docker.service        \nRequires=docker.service network.target network-online.target        \n[Service]        \nType=oneshot        \nRemainAfterExit=yes        \nTimeoutStartSec=0        \nExecStartPre=-/usr/bin/docker stop %n        \nExecStartPre=-/usr/bin/docker rm %n        \nExecStartPre=/usr/bin/docker pull portainer/portainer-ce        \nExecStart=-/usr/bin/mkdir -p /mnt/shared_nfs/portainer_data        \n# Privileged mode is required for binding to local socket to work due to SELINUX (https://github.com/portainer/portainer/issues/849)        \nExecStart=/usr/bin/docker run --privileged=true -d -p 9000:9000 --name %n --restart always -v /var/run/docker.sock:/var/run/docker.sock -v /var/portainer_data:/data portainer/portainer-ce        \nExecStop=/usr/bin/docker stop -t 15 %n        \n[Install]       \nWantedBy=multi-user.target",
+        "contents": "[Unit]        \nDescription=Portainer Admin Container        \nAfter=docker.service        \nRequires=docker.service network.target network-online.target \n\n[Service]        \nType=oneshot        \nRemainAfterExit=yes        \nTimeoutStartSec=0        \nExecStartPre=-/usr/bin/docker stop %n        \nExecStartPre=-/usr/bin/docker rm %n        \nExecStartPre=/usr/bin/docker pull portainer/portainer-ce        \nExecStart=-/usr/bin/mkdir -p /mnt/shared_nfs/portainer_data        \n# Privileged mode is required for binding to local socket to work due to SELINUX (https://github.com/portainer/portainer/issues/849)        \nExecStart=/usr/bin/docker run --privileged=true -d -p 9000:9000 --name %n --restart always -v /var/run/docker.sock:/var/run/docker.sock -v /var/portainer_data:/data portainer/portainer-ce        \nExecStop=/usr/bin/docker stop -t 15 %n  \n      \n[Install]       \nWantedBy=multi-user.target",
         "enabled": true,
         "name": "docker.portainer.service"
       }
