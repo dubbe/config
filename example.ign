@@ -5,8 +5,21 @@
   "passwd": {
     "users": [
       {
+        "groups": [
+          "docker"
+        ],
+        "name": "core",
+        "passwordHash": "$y$j9T$JOyIp4pB5qD0s.Kqe9F9S1$zwA9t57f8LUZ2bWokI9Qez3X2WbpnEjJTqCwI8MyDk7",
+        "sshAuthorizedKeys": [
+          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCUywYo9yWigusMLEEoE+fAMvvEeeXSSO7DBED02S11H84MIljtyc+m5jwB3h1AqrW9RvaJOvmABXWZujljp8mtA0seNFVuYCtZZZCQoCSwD46P55QsAPat8I9Z+0kQS3cusTvVMu9DC9N98YgW7UDSnLkb/YIqbqAAFzDmIeBJzx2LUbdPFUZfjWG9+m3tck/BiXLsFFfQdp6sewnXViRvxpU6zASFxfpWmOY5sd5Kikofb1tIqjO5SJjuKgWV8Tzs3Tku3TmW/qNUtDBIFsDGi3bmNRckOBKaQd/YSsoURUwu2S0zaFS3oVUGD8szydMQP6Xy+x0OkzHBYzOur5y4RH/p2SCT9MMrrxBAP/t0Q5r6igNqiDOxyurj9CkHP1nDU45qaePZpZpIF1ojBSZwdwetUHjgERmKCr4vm6U80R+FE3maRJpapP6+/0BIlEoR+4yVM3K/BeprfKu7Pfmb1OQudQPiNnx+1OpQO/RMHO/BTEFXfUhuyDpbHXGBHcY3JXgiSNErWpRkgZyJXdyZDMQrZklTh81wkbG88IvFii0wTUiGN+sSDT3xtsp+XqECympp+fMRZKfoOmywT1UY5oAAhnQ81Us1s/pmKZQZ3wQqcRhkSfBlQb3l0tapYF+ioyAGOiGpIGMAMiXChxO/j8BGxapcReXOHGRgjoyxQw== thomas.dahlberg@adeprimo.se"
+        ]
+      },
+      {
+        "groups": [
+          "docker"
+        ],
         "name": "thomas",
-        "passwordHash": "$6$rDCF.DrAAJZyufEg$04qN9fwQsdQYLN4FFDskK3Te8qgGOv6Vz8v1gIT/.dVejWHbVHMxbVNxRiaGYKLvhm8y62526iaqjlv/Ehmy6",
+        "passwordHash": "$y$j9T$JOyIp4pB5qD0s.Kqe9F9S1$zwA9t57f8LUZ2bWokI9Qez3X2WbpnEjJTqCwI8MyDk7",
         "sshAuthorizedKeys": [
           "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCUywYo9yWigusMLEEoE+fAMvvEeeXSSO7DBED02S11H84MIljtyc+m5jwB3h1AqrW9RvaJOvmABXWZujljp8mtA0seNFVuYCtZZZCQoCSwD46P55QsAPat8I9Z+0kQS3cusTvVMu9DC9N98YgW7UDSnLkb/YIqbqAAFzDmIeBJzx2LUbdPFUZfjWG9+m3tck/BiXLsFFfQdp6sewnXViRvxpU6zASFxfpWmOY5sd5Kikofb1tIqjO5SJjuKgWV8Tzs3Tku3TmW/qNUtDBIFsDGi3bmNRckOBKaQd/YSsoURUwu2S0zaFS3oVUGD8szydMQP6Xy+x0OkzHBYzOur5y4RH/p2SCT9MMrrxBAP/t0Q5r6igNqiDOxyurj9CkHP1nDU45qaePZpZpIF1ojBSZwdwetUHjgERmKCr4vm6U80R+FE3maRJpapP6+/0BIlEoR+4yVM3K/BeprfKu7Pfmb1OQudQPiNnx+1OpQO/RMHO/BTEFXfUhuyDpbHXGBHcY3JXgiSNErWpRkgZyJXdyZDMQrZklTh81wkbG88IvFii0wTUiGN+sSDT3xtsp+XqECympp+fMRZKfoOmywT1UY5oAAhnQ81Us1s/pmKZQZ3wQqcRhkSfBlQb3l0tapYF+ioyAGOiGpIGMAMiXChxO/j8BGxapcReXOHGRgjoyxQw== thomas.dahlberg@adeprimo.se"
         ]
@@ -46,6 +59,15 @@
           "source": "data:;base64,H4sIAAAAAAAC/zyKQQrDIBBF93OWxKrYNqXMSUIWg06IoGNQW8jtS1oon794vDf7IsK+xyILxIAsxUA/dkbuG1fhDlE615U8j0KZf8Uc97dbgEKo3JpBo5XRTlllzONi3fBne3UQpKHVk7rdlbX6/DCp756nGxtT9RtCpmNcKSZcKTWGzH0rATPJixJ8AgAA//8VDgTlqQAAAA=="
         },
         "mode": 384
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "contents": "[Unit]        \nDescription=Portainer Admin Container        \nAfter=docker.service        \nRequires=docker.service network.target network-online.target        \n[Service]        \nType=oneshot        \nRemainAfterExit=yes        \nTimeoutStartSec=0        \nExecStartPre=-/usr/bin/docker stop %n        \nExecStartPre=-/usr/bin/docker rm %n        \nExecStartPre=/usr/bin/docker pull portainer/portainer-ce        \nExecStart=-/usr/bin/mkdir -p /mnt/shared_nfs/portainer_data        \n# Privileged mode is required for binding to local socket to work due to SELINUX (https://github.com/portainer/portainer/issues/849)        \nExecStart=/usr/bin/docker run --privileged=true -d -p 9000:9000 --name %n --restart always -v /var/run/docker.sock:/var/run/docker.sock -v /var/portainer_data:/data portainer/portainer-ce        \nExecStop=/usr/bin/docker stop -t 15 %n        \n[Install]       \nWantedBy=multi-user.target",
+        "enabled": true,
+        "name": "docker.portainer.service"
       }
     ]
   }
